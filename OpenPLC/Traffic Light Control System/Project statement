@@ -1,0 +1,45 @@
+A single-lane road junction with two opposing directions (North-South and South-North) is to be equipped with an automated traffic light system, as well as safe management of crosswalks. You need to design and program this system according to the following specifications:
+
+System specifications :
+Traffic light configuration:
+
+Each direction (North-South and South-North) has three traffic lights:
+One red light.
+One yellow light.
+One green light.
+Pedestrian button:
+
+A dedicated button allows pedestrians to request to cross the road safely.
+Operating sequences :
+
+The normal traffic light sequence for one direction is as follows:
+Green light for 15 seconds.
+Yellow light for 3 seconds.
+Red light for the duration of the green and yellow lights in the opposite direction.
+When a pedestrian presses the button, the current sequence should end normally, then :
+All lights in both directions turn red for 10 seconds to allow pedestrians to cross.
+Once the crosswalk is complete, the normal light cycle resumes.
+Initial state :
+
+When the system starts up, the North-South direction begins with a green light, and the opposite direction (South-North) begins with a red light.
+Safety rules :
+
+No direction should have a green light simultaneously with the opposite direction.
+The transition from green to red must pass through the yellow light.
+Technical data :
+Inputs:
+
+One pedestrian button.
+Digital input: I0.0 (1 if button is pressed, 0 otherwise).
+Outputs:
+
+Lights for North-South direction:
+Green light: Q0.0.
+Yellow light: Q0.1.
+Red light: Q0.2.
+Lights for South-North direction:
+Green light: Q0.3.
+Yellow light: Q0.4.
+Red light: Q0.5.
+
+An arduino demo will is demonstrated
