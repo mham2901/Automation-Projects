@@ -1,1 +1,38 @@
 
+# FB_GetCycleTime
+
+## Description
+`FB_GetCycleTime` is a function block designed to **measure and fix the cycle time** of a process in milliseconds.  
+It calculates the elapsed time between the execution signal and its completion.
+
+## Inputs
+- **i_xExecute (BOOL)** : Execution signal to start the cycle time measurement.
+
+## Outputs
+- **q_xDone (BOOL)** : Indicates if the cycle time measurement is complete.
+- **q_lrCycleTime (LREAL)** : Measured cycle time in milliseconds.
+
+## Internal Variables
+- **uiState (UINT)** : Controls the state machine.
+- **timPreviousTime (TIME)** : Stores the start time of the measurement.
+- **timCycleTime (TIME)** : Stores the elapsed time.
+
+## How It Works
+1. When `i_xExecute` is set to `TRUE`, the function block records the current time (`timPreviousTime`).
+2. It calculates the elapsed time (`timCycleTime`) from the start time.
+3. The elapsed time is converted to milliseconds and stored in `q_lrCycleTime`.
+4. When `i_xExecute` is set to `FALSE`, the function block resets.
+
+## Example Usage
+```plc
+VAR
+    fbCycleTime : FB_GetCycleTime;
+    cycleTime   : LREAL;
+END_VAR
+
+// Start cycle time measurement
+fbCycleTime(i_xExecute := TRUE);
+cycleTime := fbCycleTime.q_lrCycleTime;
+
+// Stop cycle time measurement
+fbCycleTime(i_xExecute := FALSE);
