@@ -1,0 +1,39 @@
+FUNCTION_BLOCK FB_GetCycleTime
+
+VAR_INPUT 
+    i_xExecute           : BOOL;  // Execution signal to start cycle time measurement
+END_VAR
+
+VAR_OUTPUT
+    q_xDone              : BOOL;  // Indicates if the cycle time measurement is completed
+    q_lrCycleTime        : LREAL; // Measured cycle time in milliseconds
+END_VAR
+
+VAR
+    uiState              : UINT;  // State machine variable
+    timPreviousTime      : TIME;  // Stores the time when measurement starts
+    timCycleTime         : TIME;  // Stores the elapsed time between start and end
+END_VAR 
+
+// State machine for measuring the cycle time
+CASE uiState OF
+
+    0: // Initial state, waiting for execution signal
+        IF i_xExecute THEN
+            uiState := 10;                  // Move to state 10 to capture the start time
+            timPreviousTime := TIME();       // Save the current time
+        END_IF
+
+    10: // Measuring the cycle time
+        timCycleTime := TIME() - timPreviousTime;  // Compute elapsed time since execution started
+        q_lrCycleTime := TIME_TO_LREAL(timCycleTime) / 1000.0; // Convert to milliseconds
+        uiState := 20; // Move to the next state
+
+    20: // Waiting for reset
+        IF NOT i_xExecute THEN
+            uiState := 0;        // Reset state
+            q_xDone := FALSE;    // Reset completion flag
+            q_lrCycleTime := 0;  // Reset measured cycle time
+        END_IF
+        
+END_CASE
