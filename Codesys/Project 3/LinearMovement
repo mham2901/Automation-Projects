@@ -1,0 +1,49 @@
+FUNCTION_BLOCK FB_LinearMovementSimulation
+VAR_INPUT
+	i_xMoveForward                    : BOOL ; 
+	i_xMoveBackward                   : BOOL ;
+	i_lrPositiveLimit                 : LREAL ; 
+	i_lrNegativeLimit                 : LREAL ;
+	i_lrVelocity                      : LREAL ;
+	i_lrCycleTime                     : LREAL ;
+END_VAR
+VAR_OUTPUT
+	q_lrPosition                      : LREAL;
+	q_xPositiveLimitReached           : BOOL ;
+	q_xNegativeLimitReached           : BOOL ; 
+	
+END_VAR
+VAR
+	xInitializationDone               : BOOL ;
+	
+END_VAR
+
+
+//Initialisation code 
+IF NOT xInitializationDone THEN
+	q_lrPosition := i_lrNegativeLimit ;
+	xInitializationDone:= TRUE ;
+END_IF
+
+//Movement code
+IF i_xMoveForward AND NOT i_xMoveBackward THEN
+	q_lrPosition := q_lrPosition + ABS(i_lrCycleTime*i_lrVelocity) ;
+	ELSIF i_xMoveBackward AND NOT i_xMoveForward THEN
+	q_lrPosition :=	q_lrPosition - ABS(i_lrCycleTime*i_lrVelocity) ;		
+	
+END_IF
+
+//Limitation and Sensor Enabling
+IF q_lrPosition >= i_lrPositiveLimit THEN
+	q_xPositiveLimitReached := TRUE ;
+	q_xNegativeLimitReached := FALSE;
+	q_lrPosition := i_lrPositiveLimit;
+ELSIF q_lrPosition <= i_lrNegativeLimit THEN
+	q_xNegativeLimitReached := TRUE;
+	q_xPositiveLimitReached := FALSE ;
+	q_lrPosition := i_lrNegativeLimit;
+ELSE
+	q_xNegativeLimitReached := FALSE;
+	q_xPositiveLimitReached := FALSE ;
+		
+END_IF
