@@ -1,1 +1,3 @@
 
+Project Idea: Conveyor Belt System with Sorting Logic
+This project involves creating a conveyor belt system in Factory I/O and controlling it using Ignition. The system will sort objects based on their color (simulated by sensors) and display real-time data in an Ignition dashboard.
