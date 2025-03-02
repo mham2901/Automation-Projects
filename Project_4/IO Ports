@@ -1,0 +1,13 @@
+Variable Name	Modbus Address	Modbus Type	IEC 61131-3 Address
+Diffuse_Sensor_0	10001	Discrete Input	%I100.0
+Diffuse_Sensor_1	10002	Discrete Input	%I100.1
+Start_Button_0	10003	Discrete Input	%I100.2
+Vision_Sensor_0	10004	Discrete Input	%I100.3
+Vision_Sensor_1	10005	Discrete Input	%I100.4
+Reset_Button	10006	Discrete Input	%I100.5
+Belt_Conveyor_short	00001	Coil	%QX100.0
+Belt_Conveyor_short0	00002	Coil	%QX100.1
+Pivot_Arm_Sorter_0_Turn	00003	Coil	%QX100.2
+Pivot_Arm_Sorter_1_Turn	00004	Coil	%QX100.3
+Pivot_Arm_Sorter_0_Belt	00005	Coil	%QX100.4
+Pivot_Arm_Sorter_1_Belt	00006	Coil	%QX100.5
